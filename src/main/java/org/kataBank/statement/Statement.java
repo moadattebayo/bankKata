@@ -17,10 +17,10 @@ public class Statement {
 	public void print(PrintStream printer) {
 
 		StringBuilder builder = new StringBuilder();
-		builder.append(operation.getDate() + "\t");
-		builder.append(operation.getType() + "\t");
-		builder.append(operation.getAmount() + "\t");
-		builder.append(currentBalance);
+		builder.append(operation.getDate() + "   ");
+		builder.append(operation.getType() + "   ");
+		builder.append(operation.getAmount() + "   ");
+		builder.append("Balance   " + currentBalance);
 		printer.println(builder.toString());
 	}
 }

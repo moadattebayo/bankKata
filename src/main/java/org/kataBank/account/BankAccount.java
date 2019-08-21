@@ -33,7 +33,7 @@ public class BankAccount {
 	private void makeOperation(OperationType operationType, double amount) {
 
 		balance += amount;
-		Operation operation = new Operation(operationType, LocalDate.now(), amount);
+		Operation operation = new Operation(operationType, LocalDate.now(), Math.abs(amount));
 		addToHistory(operation, getBalance());
 
 	}
