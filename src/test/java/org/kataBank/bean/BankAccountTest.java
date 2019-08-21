@@ -3,7 +3,10 @@ package org.kataBank.bean;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+<<<<<<< HEAD
 import org.kataBank.account.BankAccount;
+=======
+>>>>>>> branch 'branch__1_1' of https://github.com/moadattebayo/bankKata.git
 
 public class BankAccountTest {
 
