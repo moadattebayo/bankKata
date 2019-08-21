@@ -10,17 +10,19 @@ public class Statements implements History<Statement> {
 	
 	@Override
 	public List<Statement> getAll() {
-		return null;
+		return accountStatements;
 	}
 
 	@Override
 	public void add(Statement record) {
-		
+		accountStatements.add(record);
 	}
 
 	@Override
 	public void print(PrintStream printer) {
 		
+		this.getAll().stream()
+			.forEach(as -> as.print(printer));
 	}
 
 }
