@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Statements implements History<Statement> {
 
-	List<Statement> accountStatements = new ArrayList<>();
-	
+	private List<Statement> accountStatements = new ArrayList<>();
+
 	@Override
 	public List<Statement> getAll() {
 		return accountStatements;
@@ -20,9 +20,8 @@ public class Statements implements History<Statement> {
 
 	@Override
 	public void print(PrintStream printer) {
-		
-		this.getAll().stream()
-			.forEach(as -> as.print(printer));
+
+		this.getAll().stream().forEach(as -> as.print(printer));
 	}
 
 }

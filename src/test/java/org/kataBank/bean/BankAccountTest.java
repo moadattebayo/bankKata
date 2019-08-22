@@ -2,8 +2,15 @@ package org.kataBank.bean;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.kataBank.account.BankAccount;
+import org.kataBank.exception.NegativeAmountException;
+import org.kataBank.operation.Operation;
+import org.kataBank.operation.OperationType;
+import org.kataBank.statement.Statement;
 
 public class BankAccountTest {
 
@@ -34,7 +41,7 @@ public class BankAccountTest {
 		bankAccount.deposit(150);
 		bankAccount.withdraw(150);
 
-		bankAccount.showOperationsDetails();
+		bankAccount.showOperationsDetails(System.out);
 		String displayedText = out.toString();
 		if (displayedText.length() != 0) {
 			String[] splitted = displayedText.split("\r\n");
@@ -42,6 +49,55 @@ public class BankAccountTest {
 		} else {
 			assertEquals(displayedText.length(), 0);
 		}
+	}
+
+	@Test
+	public void when_we_deposit_a_negative_amount_an_exception_is_thrown() {
+
+		Assertions.assertThrows(NegativeAmountException.class, () -> {
+			bankAccount.deposit(-500);
+		});
+	}
+
+	@Test
+	public void when_we_withdraw_a_negative_amount_an_exception_is_thrown() {
+
+		Assertions.assertThrows(NegativeAmountException.class, () -> {
+			bankAccount.withdraw(-500);
+		});
+	}
+
+	@Test
+	public void when_we_deposit_500_then_history_contains_the_deposit_operation_with_current_balance() {
+
+		bankAccount.deposit(500);
+		Operation expectedOperation = new Operation(OperationType.DEPOSIT, LocalDate.now(), 500);
+		Statement expectedStatement = new Statement(expectedOperation, 500);
+
+		Statement existingStatement = bankAccount.getHistory().getAll().get(0);
+		Operation existingOperation = existingStatement.getOperation();
+
+		assertEquals(existingStatement.getCurrentBalance(), expectedStatement.getCurrentBalance());
+		assertEquals(existingOperation.getDate(), expectedOperation.getDate());
+		assertEquals(existingOperation.getType(), expectedOperation.getType());
+		assertEquals(existingOperation.getAmount(), expectedOperation.getAmount());
+	}
+
+	@Test
+	public void when_we_withdraw_500_then_history_contains_the_withdrawal_operation_with_current_balance()
+			throws NegativeAmountException {
+
+		bankAccount.withdraw(500);
+		Operation expectedOperation = new Operation(OperationType.WITHDRAW, LocalDate.now(), 500);
+		Statement expectedStatement = new Statement(expectedOperation, -500);
+
+		Statement existingStatement = bankAccount.getHistory().getAll().get(0);
+		Operation existingOperation = existingStatement.getOperation();
+
+		assertEquals(existingStatement.getCurrentBalance(), expectedStatement.getCurrentBalance());
+		assertEquals(existingOperation.getDate(), expectedOperation.getDate());
+		assertEquals(existingOperation.getType(), expectedOperation.getType());
+		assertEquals(existingOperation.getAmount(), expectedOperation.getAmount());
 	}
 
 }

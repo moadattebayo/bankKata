@@ -10,7 +10,11 @@ public class App {
 		bankAccount.deposit(500);
 		bankAccount.withdraw(100);
 
-		bankAccount.showOperationsDetails();
+		bankAccount.showOperationsDetails(System.out);
+		bankAccount.deposit(-500);
+
+		bankAccount.withdraw(-100);
+
 	}
 
 }

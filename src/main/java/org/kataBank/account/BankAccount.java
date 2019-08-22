@@ -1,7 +1,9 @@
 package org.kataBank.account;
 
+import java.io.PrintStream;
 import java.time.LocalDate;
 
+import org.kataBank.exception.NegativeAmountException;
 import org.kataBank.operation.Operation;
 import org.kataBank.operation.OperationType;
 import org.kataBank.statement.History;
@@ -22,12 +24,18 @@ public class BankAccount {
 		return balance;
 	}
 
-	public void deposit(double d) {
-		makeOperation(OperationType.DEPOSIT, d);
+	public void deposit(double amount) {
+		if (amount < 0) {
+			throw new NegativeAmountException("The amount to deposit cannot be negative");
+		}
+		makeOperation(OperationType.DEPOSIT, amount);
 	}
 
-	public void withdraw(double d) {
-		makeOperation(OperationType.WITHDRAW, -d);
+	public void withdraw(double amount) {
+		if (amount < 0) {
+			throw new NegativeAmountException("The amount to withdraw cannot be negative");
+		}
+		makeOperation(OperationType.WITHDRAW, -amount);
 	}
 
 	private void makeOperation(OperationType operationType, double amount) {
@@ -48,10 +56,10 @@ public class BankAccount {
 	public History<Statement> getHistory() {
 		return history;
 	}
-	
-	public void showOperationsDetails() {
 
-		history.print(System.out);
+	public void showOperationsDetails(PrintStream printer) {
+
+		history.print(printer);
 	}
 
 }

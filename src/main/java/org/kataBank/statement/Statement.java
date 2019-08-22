@@ -6,8 +6,8 @@ import org.kataBank.operation.Operation;
 
 public class Statement {
 
-	private Operation operation;
-	private double currentBalance;
+	private final Operation operation;
+	private final double currentBalance;
 
 	public Statement(Operation operation, double currentBalance) {
 		this.operation = operation;
@@ -17,10 +17,19 @@ public class Statement {
 	public void print(PrintStream printer) {
 
 		StringBuilder builder = new StringBuilder();
-		builder.append(operation.getDate() + "   ");
-		builder.append(operation.getType() + "   ");
-		builder.append(operation.getAmount() + "   ");
-		builder.append("Balance   " + currentBalance);
+		builder.append(getOperation().getDate() + "   ");
+		builder.append(getOperation().getType() + "   ");
+		builder.append(getOperation().getAmount() + "   ");
+		builder.append("Balance   " + getCurrentBalance());
 		printer.println(builder.toString());
 	}
+
+	public Operation getOperation() {
+		return operation;
+	}
+
+	public double getCurrentBalance() {
+		return currentBalance;
+	}
+
 }
