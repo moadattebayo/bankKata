@@ -6,14 +6,19 @@ public class App {
 
 	public static void main(String[] args) {
 
-		BankAccount bankAccount = new BankAccount();
-		bankAccount.deposit(500);
-		bankAccount.withdraw(100);
+		try {
+			BankAccount bankAccount = new BankAccount();
 
-		bankAccount.showOperationsDetails(System.out);
-		bankAccount.deposit(-500);
+			bankAccount.deposit(500);
+			bankAccount.withdraw(100);
+			bankAccount.showOperationsDetails(System.out);
 
-		bankAccount.withdraw(-100);
+			bankAccount.deposit(-500);
+			bankAccount.withdraw(-100);
+
+		} catch (RuntimeException e) {
+			System.err.println(e.getMessage());
+		}
 
 	}
 
