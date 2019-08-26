@@ -1,6 +1,5 @@
 package org.kataBank.account;
 
-import java.io.PrintStream;
 import java.time.LocalDate;
 
 import org.kataBank.exception.NegativeAmountException;
@@ -55,11 +54,6 @@ public class BankAccount {
 
 	public History<Statement> getHistory() {
 		return history;
-	}
-
-	public void showOperationsDetails(PrintStream printer) {
-
-		history.print(printer);
 	}
 
 }

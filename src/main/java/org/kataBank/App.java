@@ -1,6 +1,7 @@
 package org.kataBank;
 
 import org.kataBank.account.BankAccount;
+import org.kataBank.util.BankAccountUtil;
 
 public class App {
 
@@ -11,7 +12,7 @@ public class App {
 
 			bankAccount.deposit(500);
 			bankAccount.withdraw(100);
-			bankAccount.showOperationsDetails(System.out);
+			BankAccountUtil.showOperationsDetails(bankAccount.getHistory(), System.out);
 
 			bankAccount.deposit(-500);
 			bankAccount.withdraw(-100);
